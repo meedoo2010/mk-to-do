@@ -1,0 +1,9 @@
+[project]
+name = "MK to do"
+version = "1.0.0"
+description = "tasks App"
+icon = "assets/mk-to-do.png"
+
+[tool.flet]
+app_name = "mk_to_do"
+app_id = "is.fwh.mk.mktodo"
