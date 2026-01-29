@@ -1,7 +1,7 @@
 [project]
 name = "MK to do"
 version = "1.0.0"
-description = "tasks App"
+description = "to do tasks App"
 icon = "assets/icon.png"
 
 [tool.flet]
