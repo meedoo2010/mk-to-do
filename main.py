@@ -74,4 +74,4 @@ def main(page: Page):
     # عرض المهام الموجودة عند بدء التطبيق
     refresh_task_list()
 
-app(main)
+run(main)
