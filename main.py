@@ -1,6 +1,6 @@
 import json
 from flet import *
-import plyer
+from plyer import *
 
 TASKS_FILE = "tasks.json"
 
@@ -16,6 +16,11 @@ def save_tasks(tasks):
         json.dump(tasks, f)
 
 def main(page: Page):
+    page.title = "To-Do List App"
+    page.window.width = 500
+    page.window.height = 700
+    page.window.top = 50
+    page.window.left = 500
     page.theme_mode = ThemeMode.LIGHT
     page.scroll = "auto"
 
@@ -50,7 +55,7 @@ def main(page: Page):
             refresh_task_list()
 
             # إشعار يظهر اسم المهمة
-            plyer.notification.notify(
+            notification.notify(
                 title="تمت إضافة مهمة",
                 message=f"✅ انت ضفت المهمة: {task_name}",
             )
