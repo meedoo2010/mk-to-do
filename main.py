@@ -16,11 +16,7 @@ def save_tasks(tasks):
         json.dump(tasks, f)
 
 def main(page: Page):
-    page.title = "To-Do List App"
-    page.window.width = 500
-    page.window.height = 700
-    page.window.top = 50
-    page.window.left = 500
+    page.theme_mode = ThemeMode.LIGHT
     page.scroll = "auto"
 
     # تحميل المهام عند فتح التطبيق
