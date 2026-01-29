@@ -1,5 +1,5 @@
 import json
-from flet import app, Page, TextField, Column, Row, Text, IconButton, Icons, Button
+from flet import *
 from plyer import notification
 
 TASKS_FILE = "tasks.json"
@@ -16,11 +16,6 @@ def save_tasks(tasks):
         json.dump(tasks, f)
 
 def main(page: Page):
-    page.title = "To-Do List App"
-    page.window.width = 500
-    page.window.height = 700
-    page.window.top = 50
-    page.window.left = 500
     page.scroll = "auto"
 
     # تحميل المهام عند فتح التطبيق
