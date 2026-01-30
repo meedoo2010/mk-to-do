@@ -1,6 +1,6 @@
 import json
 from flet import *
-from plyer import notification
+
 
 TASKS_FILE = "tasks.json"
 
@@ -47,15 +47,8 @@ def main(page: Page):
             save_tasks(tasks)
             task_input.value = ""
             refresh_task_list()
-            # إشعار
-            try:
-                notification.notify(
-                    title="تمت إضافة مهمة",
-                    message=f"✅ انت ضفت المهمة: {task_name}"
-                )
-            except:
-                print("الإشعار ممكن ما يظهرش على الكمبيوتر")
 
+    
     def delete_task(task_name):
         if task_name in tasks:
             tasks.remove(task_name)
