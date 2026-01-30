@@ -1,27 +1,25 @@
-from flet import *
 import json
-
+from flet import *
+from plyer import notification
 
 TASKS_FILE = "tasks.json"
 
 def load_tasks():
     try:
-        with open(TASKS_FILE, "r") as f:
+        with open(TASKS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
 def save_tasks(tasks):
-    with open(TASKS_FILE, "w") as f:
-        json.dump(tasks, f)
+    with open(TASKS_FILE, "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=2)
 
 def main(page: Page):
     page.theme_mode = ThemeMode.LIGHT
     page.scroll = ScrollMode.AUTO
 
-    # تحميل المهام عند فتح التطبيق
     tasks = load_tasks()
-
     task_input = TextField(label="Enter a task", expand=True)
     task_list = Column()
 
@@ -31,9 +29,10 @@ def main(page: Page):
             task_list.controls.append(
                 Row(
                     [
-                        Text(task),
+                        Text(task, expand=True),
                         IconButton(
-                            icon=Icons.DELETE_ROUNDED,
+                            icon=icons.DELETE_ROUNDED,
+                            icon_color=colors.RED,
                             on_click=lambda e, t=task: delete_task(t)
                         )
                     ]
@@ -43,20 +42,27 @@ def main(page: Page):
 
     def add_task(e):
         task_name = task_input.value.strip()
-        if task_name != "":
+        if task_name:
             tasks.append(task_name)
             save_tasks(tasks)
             task_input.value = ""
             refresh_task_list()
+            # إشعار
+            try:
+                notification.notify(
+                    title="تمت إضافة مهمة",
+                    message=f"✅ انت ضفت المهمة: {task_name}"
+                )
+            except:
+                print("الإشعار ممكن ما يظهرش على الكمبيوتر")
 
-            
     def delete_task(task_name):
         if task_name in tasks:
             tasks.remove(task_name)
             save_tasks(tasks)
             refresh_task_list()
 
-    add_button = Button("Add Task", on_click=add_task)
+    add_button = ElevatedButton(text="Add Task", on_click=add_task)
 
     page.add(
         Column(
@@ -67,7 +73,6 @@ def main(page: Page):
         )
     )
 
-    # عرض المهام الموجودة عند بدء التطبيق
     refresh_task_list()
 
 app(main)
