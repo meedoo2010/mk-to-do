@@ -1,6 +1,6 @@
+from flet import app, Page, ThemeMode, ScrollMode, Row, TextField, Column, Text, IconButton, Icons, Button, MainAxisAlignment
 import json
-from flet import *
-from plyer import *
+
 
 TASKS_FILE = "tasks.json"
 
@@ -16,13 +16,8 @@ def save_tasks(tasks):
         json.dump(tasks, f)
 
 def main(page: Page):
-    page.title = "To-Do List App"
-    page.window.width = 500
-    page.window.height = 700
-    page.window.top = 50
-    page.window.left = 500
     page.theme_mode = ThemeMode.LIGHT
-    page.scroll = "auto"
+    page.scroll = ScrollMode.AUTO
 
     # تحميل المهام عند فتح التطبيق
     tasks = load_tasks()
@@ -54,12 +49,7 @@ def main(page: Page):
             task_input.value = ""
             refresh_task_list()
 
-            # إشعار يظهر اسم المهمة
-            notification.notify(
-                title="تمت إضافة مهمة",
-                message=f"✅ انت ضفت المهمة: {task_name}",
-            )
-    
+            
     def delete_task(task_name):
         if task_name in tasks:
             tasks.remove(task_name)
@@ -71,7 +61,7 @@ def main(page: Page):
     page.add(
         Column(
             [
-                Row([task_input, add_button], alignment="spaceBetween"),
+                Row([task_input, add_button], alignment=MainAxisAlignment.SPACE_BETWEEN),
                 task_list
             ]
         )
